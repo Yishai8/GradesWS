@@ -1,0 +1,82 @@
+[{
+    "year":2012,
+    "students": [
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Doe",
+            "GPA": 80
+        },
+        {
+            "id": 2,
+            "firstName": "Anna",
+            "lastName": "Smith",
+            "GPA": 90
+        },
+        {
+            "id": 3,
+            "firstName": "Peter",
+            "lastName": "Jones",
+            "GPA": 100
+        }
+    
+]},
+{
+    "year":2013,
+    "students":[
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Doe",
+            "GPA": 85
+        },
+        {
+            
+            "id": 2,
+            "firstName": "Anna",
+            "lastName": "Smith",
+            "GPA": 92
+        },
+        {
+            "id": 3,
+            "firstName": "Peter",
+            "lastName": "Jones",
+            "GPA": 88
+        }
+    
+    ]
+},
+
+{
+    "year":2014,
+    "students":[
+        {
+            "id": 5,
+            "firstName": "Joe",
+            "lastName": "know",
+            "GPA": 67
+        },
+        
+        {
+            "id": 3,
+            "firstName": "Peter",
+            "lastName": "Jones",
+            "GPA": 77
+        },
+
+        {
+            "id": 6,
+            "firstName": "Yossi",
+            "lastName": "Haim",
+            "GPA": 68
+        },
+        {
+            "id": 13,
+            "firstName": "Chen",
+            "lastName": "Si",
+            "GPA": 92
+        }
+    
+    ]
+}
+]
