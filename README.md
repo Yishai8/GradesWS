@@ -90,7 +90,7 @@ Results example:
           }]
 Empty object ( [] ) will be returned if there are no results.
 
-3) Get student's grades by year: https://studentsws.herokuapp.com/getExcellenceByYear?year=2012
+3) Get student's excellent grades by year: https://studentsws.herokuapp.com/getExcellenceByYear?year=2012
 
 Results Example:
 
