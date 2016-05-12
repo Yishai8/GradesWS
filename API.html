@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" class=" is-copy-enabled is-u2f-enabled">
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
@@ -51,7 +47,7 @@
     <article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-studentsws" class="anchor" href="#studentsws" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>studentsWS</h1>
 
 <p>This WS use is to display the data regarding excellent students in Shenkar college (yearly GPA&gt;=90) for 2012-2014.
-The data source is a JSON file which looks like this:</p>
+The data source is a JSON file which looks like this (The field year might show after the students array like the example for function 3):</p>
 
 <pre><code>  [
     {
@@ -114,7 +110,7 @@ The data source is a JSON file which looks like this:</p>
 
 <p>1) General function which gets all excellent for all years : <a href="https://studentsws.herokuapp.com/">https://studentsws.herokuapp.com/</a></p>
 
-<p>Empty object ({}) will be returned if there are no results.</p>
+<p>Empty object ( [] ) will be returned if there are no results.</p>
 
 <p>2) Get student's grades by id: <a href="https://studentsws.herokuapp.com/getStudGradeByID?id=1">https://studentsws.herokuapp.com/getStudGradeByID?id=1</a></p>
 
@@ -141,32 +137,45 @@ The data source is a JSON file which looks like this:</p>
   }]
 </code></pre>
 
-<p>Empty object ({}) will be returned if there are no results.</p>
+<p>Empty object ( [] ) will be returned if there are no results.</p>
 
 <p>3) Get student's grades by year: <a href="https://studentsws.herokuapp.com/getExcellenceByYear?year=2012">https://studentsws.herokuapp.com/getExcellenceByYear?year=2012</a></p>
 
 <p>Results Example:</p>
 
-<pre><code>  [{
-    "year": 2013,
-    "students": [{
-        "id": 2,
-        "firstName": "Anna",
-        "lastName": "Smith",
-        "GPA": 92
-    }]
-  }]
+<pre><code>  [
+    {
+          students: [
+          {
+              id: 2,
+              firstName: "Anna",
+              lastName: "Smith",
+              GPA: 90
+          },
+          {
+              id: 3,
+              firstName: "Peter",
+              lastName: "Jones",
+              GPA: 100
+          }
+                ],
+          year: 2012
+          
+  }
+]
 </code></pre>
 
-<p>Empty object ({}) will be returned if there are no results.</p>
+<p>Empty object ( []] ) will be returned if there are no results.</p>
 
 <p>Debugging: 
-In the response header you can find "function-name" with the function name as value and "parameter" which will indicate the sent parameter and its value.</p>
+In the response header you can find "function-name" with the function name as value and "parameter" which will indicate the sent parameter and its value.
+Status code (200 - OK,404 - Error) will also be available under "Status"</p>
 
 <p>Example: </p>
 
 <pre><code>    function-name:getStudGrade
     parameter:id=1
+    Status:200
 </code></pre>
 </article>
   </div>

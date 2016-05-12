@@ -1,107 +1,88 @@
 var file =  require( './data/students1.json' );
 var fake;
 var keys;
+var mongoose = require ('mongoose');
+var grade = require ('./grade');
+var gradeM;
+// Serialize a document 
 
-var grade=module.exports=
+
+var gradeArr=module.exports=
 {
 
-    getAllStud : function () { //get all students
-     fake=JSON.parse(JSON.stringify(file));
-     keys = Object.keys(fake);
-    if(Object.keys(fake).length === 0 && JSON.stringify(fake) === JSON.stringify([]))
-    
-    return JSON.stringify({});
-    
-
-    return JSON.stringify(fake);
-    },
-
-    getAllExcellenceStudent : function () { //get all students with GPA>=90
-     fake=JSON.parse(JSON.stringify(file));
-     keys = Object.keys(fake);
-       for(var i=keys.length-1; i>=0; i--)   // amount of year structs
-       {  
-        for(var j=fake[i].students.length-1; j>=0; j--)
-        {   
-            if(fake[i].students[j].GPA<90) // delete all irrelevant records
+    getAllStud : function (gradeM,res) { //get all students
+        gradeM.aggregate({$project : {
+            _id : 0 ,
+            year : 1 ,
+            students : 1
+        }}).exec(function (err, data) {
+            if (err) {res.set('Status' , 404 );
+            res.send( "err: " + err);}
+            else
             {
-                delete fake[i].students[j];
-                fake[i].students=fake[i].students.filter(function(x) {return x!==null});
-            }
-        }
-        if(fake[i].students.length==0)
-        {
-            delete fake[i];
-            fake=fake.filter(function(x) {return x!==null});
-        }
-    }
-
-    if(Object.keys(fake).length === 0 && JSON.stringify(fake) === JSON.stringify([]))
-    
-    return JSON.stringify({});
-    
-
-    return JSON.stringify(fake);
-    },
-
-    getStudGradeByID : function (id) {  //get student's grades by id
-    fake=JSON.parse(JSON.stringify(file));
-    keys = Object.keys(fake);
-    for(var i=keys.length-1; i>=0; i--)
-    {     
-        for(var j=fake[i].students.length-1; j>=0; j--)
-        {   
-            if(fake[i].students[j].id!=id) // delete all irrelevant records
-            {
-                delete fake[i].students[j];
-                fake[i].students=fake[i].students.filter(function(x) {return x!==null});
-            }
-        }
-        if(fake[i].students.length==0)
-        {
-            delete fake[i];
-            fake=fake.filter(function(x) {return x!==null});
-        }
-
-    }
-
-    if(Object.keys(fake).length === 0 && JSON.stringify(fake) === JSON.stringify([]))
-    
-    return JSON.stringify({});
-    return JSON.stringify(fake);
+                res.set('Status' , 200 );
+                res.send(JSON.stringify(data)); 
+            }});
 
     },
 
-        getExcellenceByYear: function(year) {   //get all students with GPA>=90 by year
+    getAllExcellenceStudent : function (gradeM,res) { //get all students with GPA>=90
 
-            fake=JSON.parse(JSON.stringify(file));
-            keys = Object.keys(fake);
-            for(var i=keys.length-1; i>=0; i--)
-            {    
-                if(fake[i].year!=year)
-                fake=fake.slice(0,i);
+        gradeM.aggregate( { $unwind: '$students'},{ $match: {'students.GPA': {$gte: 90}}}
+            ,{ $group: {_id:'$year',
+            students: {$push: {id:'$students.id',firstName:'$students.firstName',
+            lastName:'$students.lastName',
+            GPA:'$students.GPA',}}}},{$project : {
+                _id : 0 ,
+                year : '$_id' ,
+                students : '$students'
+            }},{$sort:{year:1}}).exec(function (err, data) {
+                if (err) {res.set('Status' , 404 );
+                res.send( "err: " + err);}
                 else
                 {
-                    for(var j=fake[i].students.length-1; j>=0; j--)
-                    {   
-            if(fake[i].students[j].GPA<90) // delete all irrelevant records
+                    res.set('Status' , 200 );
+                    res.send(JSON.stringify(data)); 
+                }});
+        },
+
+    getStudGradeByID : function (id,gradeM,res) {  //get student's grades by id
+    gradeM.aggregate( { $unwind: '$students'},{ $match: {'students.id': {$eq: parseInt(id)},'students.GPA': {$gte: 90}}}
+        ,{ $group: {_id:'$year',
+        students: {$push: {id:'$students.id',firstName:'$students.firstName',
+        lastName:'$students.lastName',
+        GPA:'$students.GPA',}}}},{$project : {
+            _id : 0 ,
+            year : '$_id' ,
+            students : '$students'
+        }},{$sort:{year:1}}).exec(function (err, data) {
+            if (err) {res.set('Status' , 404 );
+            res.send( "err: " + err);}
+            else
             {
-                delete fake[i].students[j];
-                fake[i].students=fake[i].students.filter(function(x) {return x!==null});
+                res.set('Status' , 200 );
+                res.send(JSON.stringify(data)); 
+            }});
+
+    },
+
+        getExcellenceByYear: function(year,gradeM,res) {   //get all students with GPA>=90 by year
+            gradeM.aggregate( {$match: {year: parseInt(year)}},{ $unwind: '$students'},{$match: {'students.GPA': {$gte: 90}}},
+                { $group: {_id:'$year',
+                students: {$push: {id:'$students.id',firstName:'$students.firstName',
+                lastName:'$students.lastName',
+                GPA:'$students.GPA',}}}},{$project : {
+                    _id : 0 ,
+                    year : '$_id' ,
+                    students : '$students'
+                }},{$sort:{year:1}}).exec(function (err, data) {
+                    if (err) {res.set('Status' , 404 );
+                    res.send( "err: " + err);}
+                    else
+                    {
+                        res.set('Status' , 200 );
+                        res.send(JSON.stringify(data)); 
+                    }});
             }
 
-        }
-        fake=fake.slice(i,i+1); //leave only relevant year 
-        break;
-    }
-}
-keys = Object.keys(fake);
-
-if(fake[keys].students.length==0)
-
-return JSON.stringify({});
-
-return JSON.stringify(fake);            
-}
-
-};
+        };
