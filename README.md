@@ -55,13 +55,13 @@ The data source is MongoDB documents which looks like this (The field year might
                      ]
           }
         ]
-To get to the API : https://studentsws.herokuapp.com/api
+To get to the API : https://studentsws.herokuapp.com/
 
 General function which gets all students for all years : https://studentsws.herokuapp.com/getallstud
 
 There are 3 GET function in use:
 
-1) General function which gets all excellent for all years : https://studentsws.herokuapp.com/
+1) General function which gets all excellent for all years : https://studentsws.herokuapp.com/getAllExcellenceStudent
 
 Empty object ( [] ) will be returned if there are no results.
 
