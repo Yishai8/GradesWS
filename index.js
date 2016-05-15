@@ -21,7 +21,7 @@ conn.once('open',function() {
     
     //mongoose.disconnect();
 
-    app.get('/api',function(req, res){
+    app.get('/',function(req, res){
         console.log("Calling API page");
         fs.readFile("./API.html", function(err, data){
           res.writeHead(200, {'Content-Type': 'text/html'});
@@ -31,10 +31,10 @@ conn.once('open',function() {
 
     });
 
-    app.get('/',function(req, res){
+    app.get('/getAllExcellenceStudent',function(req, res){
 
-        console.log("Calling root function");
-        res.set('function-name' , 'general' );
+        console.log("Getting all excellent students grades");
+        res.set('function-name' , 'getAllExcellenceStudent' );
         res.set('parameter' , 'none' );
         GInfo.getAllExcellenceStudent(gradeM,res);
 
@@ -42,7 +42,7 @@ conn.once('open',function() {
 
 
     app.get('/getAllStud',function(req, res){
-        console.log("Getting all students list");   
+        console.log("Getting all students grades list");   
         res.set('function-name' , 'getAllStud' );
         res.set('parameter' , 'none' );
         GInfo.getAllStud(gradeM,res);
@@ -51,14 +51,14 @@ conn.once('open',function() {
     });
 
     app.get('/getStudGradeByID',function(req,res){
-        console.log("Getting all excellent students grades by ID");   
+        console.log("Getting all excellent student's grades by ID="+req.query.id);   
         res.set('function-name','getStudGradeByID');
         res.set('parameter','id='+req.query.id);
         GInfo.getStudGradeByID(req.query.id,gradeM,res);
     });
 
     app.get('/getExcellenceByYear',function(req,res){
-        console.log("Getting all excellent students grades by Year");
+        console.log("Getting all excellent students grades by Year="+req.query.year);
         res.set('function-name','getExcellenceByYear');
         res.set('parameter','year='+req.query.year);
         GInfo.getExcellenceByYear(req.query.year,gradeM,res);
@@ -66,7 +66,7 @@ conn.once('open',function() {
 
 
     app.listen(port);
-    console.log("listening on port "+port);
+    console.log("listening on port "+port+" and whaiting for WS requests");
     
 });
 
