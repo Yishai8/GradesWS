@@ -21,6 +21,9 @@ var gradeArr=module.exports=
             else
             {
                 res.set('Status' , 200 );
+                res.set('Access-Control-Allow-Origin': '*');
+                res.set('Access-Control-Allow-Headers': 'Origin,X-Requested-With,Content-Type,Accept');
+                res.set('Content-Type','application/json');
                 res.send(JSON.stringify(data)); 
             }});
 
@@ -42,6 +45,9 @@ var gradeArr=module.exports=
                 else
                 {
                     res.set('Status' , 200 );
+                    res.set('Access-Control-Allow-Origin': '*');
+                res.set('Access-Control-Allow-Headers': 'Origin,X-Requested-With,Content-Type,Accept');
+                res.set('Content-Type','application/json');
                     res.send(JSON.stringify(data)); 
                 }});
         },
@@ -61,6 +67,9 @@ var gradeArr=module.exports=
             else
             {
                 res.set('Status' , 200 );
+                res.set('Access-Control-Allow-Origin': '*');
+                res.set('Access-Control-Allow-Headers': 'Origin,X-Requested-With,Content-Type,Accept');
+                res.set('Content-Type','application/json');
                 res.send(JSON.stringify(data)); 
             }});
 
@@ -81,6 +90,9 @@ var gradeArr=module.exports=
                     else
                     {
                         res.set('Status' , 200 );
+                        res.set('Access-Control-Allow-Origin': '*');
+                res.set('Access-Control-Allow-Headers': 'Origin,X-Requested-With,Content-Type,Accept');
+                res.set('Content-Type','application/json');
                         res.send(JSON.stringify(data)); 
                     }});
             }
